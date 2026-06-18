@@ -1,7 +1,5 @@
-# 
+# StatHub — Premium Statistics Publication
 
-<<<<<<< HEAD
-=======
 A statistics library inspired by Statista, Our World in Data, and Knoema.
 
 ## Quick Start (Local)
@@ -129,4 +127,3 @@ goes live without a manual `git` step.
   secret, and have the panel call that instead.
 - All datasets are validated before any commit, so malformed data can't be
   pushed into a build that now fails on type errors.
->>>>>>> cfcbfea (Second commit)
