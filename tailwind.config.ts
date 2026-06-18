@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
-import tailwindcssAnimate from "tailwindcss-animate";
+// Animations are provided by `tw-animate-css` (Tailwind v4), which is imported
+// in src/app/globals.css — not as a JS plugin here.
 
 const config: Config = {
     darkMode: "class",
@@ -59,6 +60,6 @@ const config: Config = {
   		}
   	}
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [],
 };
 export default config;
