@@ -256,6 +256,7 @@ function DatasetSelector({
   exclude?: string;
   label: string;
 }) {
+  const { datasets: DATASETS } = useDatasets();
   return (
     <div className="sh-card p-4">
       <div className="text-[10px] uppercase tracking-wider text-[var(--sh-ink-soft)] font-bold mb-2">{label}</div>
