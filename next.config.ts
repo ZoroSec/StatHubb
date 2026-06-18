@@ -25,13 +25,15 @@ const nextConfig: NextConfig = {
   // Hash-based routing works with trailing slash
   trailingSlash: true,
 
+  // Build safety: surface type and lint errors at build time
+  // instead of silently shipping them to production.
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 };
 
 export default nextConfig;

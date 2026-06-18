@@ -7,10 +7,11 @@ import { useNotebooks, parseNotebook } from "@/lib/stathub/notebook";
 import { TOPICS } from "@/lib/stathub/topics";
 import { COUNTRIES } from "@/lib/stathub/countries";
 import { ChartCanvas } from "./ChartCanvas";
+import { PublishPanel } from "./PublishPanel";
 import type { Dataset, ChartType, EventAnnotation } from "@/lib/stathub/types";
 import {
   ArrowLeft, Plus, Edit3, Trash2, Save, X, Database, Eye, EyeOff,
-  ChevronDown, ChevronUp, Sparkles, Lock, LogOut, KeyRound, Upload, FileCode2,
+  ChevronDown, ChevronUp, Sparkles, Lock, LogOut, KeyRound, Upload, FileCode2, Github,
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
@@ -69,36 +70,48 @@ const EMPTY_FORM: FormData = {
 
 export function AdminPage() {
   const { navigate } = useStatHub();
-  const { authed, login, logout, changePassword, attempts, locked, lockTimer } = useAdminAuth();
+  const { authed, hasPin, login, logout, setInitialPin, changePin } = useAdminAuth();
 
   if (!authed) {
-    return <PasswordGate onLogin={login} attempts={attempts} locked={locked} lockTimer={lockTimer} onBack={() => navigate({ name: "home" })} />;
+    return (
+      <PasswordGate
+        hasPin={hasPin}
+        onLogin={login}
+        onSetPin={setInitialPin}
+        onBack={() => navigate({ name: "home" })}
+      />
+    );
   }
 
-  return <AdminContent onLogout={logout} onChangePassword={changePassword} />;
+  return <AdminContent onLogout={logout} onChangePassword={changePin} />;
 }
 
 // ── Password Gate ────────────────────────────────────────────────────────────
 
 function PasswordGate({
-  onLogin, attempts, locked, lockTimer, onBack,
+  hasPin, onLogin, onSetPin, onBack,
 }: {
-  onLogin: (pw: string) => boolean;
-  attempts: number;
-  locked: boolean;
-  lockTimer: number;
+  hasPin: boolean;
+  onLogin: (pin: string) => boolean;
+  onSetPin: (pin: string) => boolean;
   onBack: () => void;
 }) {
-  const [password, setPassword] = useState("");
+  const [pin, setPin] = useState("");
   const [error, setError] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (locked) return;
-    const ok = onLogin(password);
-    if (!ok) {
-      setError("Incorrect password. " + (3 - attempts - 1) + " attempts remaining.");
-      setPassword("");
+    if (hasPin) {
+      const ok = onLogin(pin);
+      if (!ok) {
+        setError("That PIN doesn't match the one saved in this browser.");
+        setPin("");
+      }
+    } else {
+      const ok = onSetPin(pin);
+      if (!ok) {
+        setError("Choose a PIN of at least 4 characters.");
+      }
     }
   }
 
@@ -109,33 +122,42 @@ function PasswordGate({
           <Lock size={28} />
         </div>
         <h1 className="text-2xl font-bold text-[var(--sh-ink)] mb-2" style={{ letterSpacing: "-0.5px" }}>
-          Admin Access
+          Local Editor
         </h1>
-        <p className="text-sm text-[var(--sh-ink-soft)] mb-6">
-          Enter your password to manage datasets and notebooks.
+        <p className="text-sm text-[var(--sh-ink-soft)] mb-4">
+          {hasPin
+            ? "Enter your local PIN to open the dataset editor."
+            : "Set a local PIN to open the dataset editor."}
         </p>
+
+        {/* Honest disclosure: this is not access control. */}
+        <div
+          className="text-[11px] leading-relaxed text-[var(--sh-ink-soft)] mb-5 p-3 rounded-md"
+          style={{ background: "var(--sh-surface-2, rgba(127,127,127,0.08))", textAlign: "left" }}
+        >
+          <strong>Local only.</strong> This is a static site with no server.
+          Anything you add or edit here is saved in <em>this browser</em> only —
+          it never changes the published site or what other visitors see. The
+          PIN just prevents accidental edits on a shared device; it is not
+          security.
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             type="password"
+            inputMode="numeric"
             className="sh-input text-center"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => { setPassword(e.target.value); setError(""); }}
-            disabled={locked}
+            placeholder={hasPin ? "Local PIN" : "Choose a PIN (4+ chars)"}
+            value={pin}
+            onChange={(e) => { setPin(e.target.value); setError(""); }}
             autoFocus
           />
           {error && <p className="text-xs text-[#ef4444]">{error}</p>}
-          {locked && (
-            <p className="text-xs text-[#ef4444]">
-              Too many attempts. Try again in {lockTimer}s.
-            </p>
-          )}
           <button
             type="submit"
             className="sh-btn sh-btn-primary w-full justify-center"
-            disabled={locked}
           >
-            <Lock size={14} /> {locked ? `Locked (${lockTimer}s)` : "Unlock Admin"}
+            <Lock size={14} /> {hasPin ? "Open Editor" : "Set PIN & Open"}
           </button>
         </form>
         <button
@@ -144,9 +166,6 @@ function PasswordGate({
         >
           <ArrowLeft size={14} /> Back to site
         </button>
-        <p className="text-[11px] text-[var(--sh-ink-soft)] mt-5">
-          Default password: <code className="sh-chip !py-0.5 !px-1.5">stathub2024</code>
-        </p>
       </div>
     </div>
   );
@@ -162,13 +181,14 @@ function AdminContent({
   onChangePassword: (oldPw: string, newPw: string) => boolean;
 }) {
   const { navigate } = useStatHub();
-  const { datasets, addDataset, deleteDataset, isCustom } = useDatasets();
+  const { datasets, addDataset, deleteDataset, isCustom, getCustomDatasets, syncStatus } = useDatasets();
   const { notebooks, saveNotebook, deleteNotebook } = useNotebooks();
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   const [showPwChange, setShowPwChange] = useState(false);
+  const [showPublish, setShowPublish] = useState(false);
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [confirmPw, setConfirmPw] = useState("");
@@ -227,8 +247,11 @@ function AdminContent({
       .map((line) => line.trim())
       .filter(Boolean)
       .map((line) => {
-        const parts = line.split(",").map((s) => s.trim());
-        return { label: parts[0], value: parseFloat(parts[1]) || 0 };
+        // Accept comma, tab, semicolon, or run-of-spaces as the separator,
+        // so pasting two columns straight from Excel/Google Sheets works.
+        const parts = line.split(/\s*[,;\t]\s*|\s{2,}/).map((s) => s.trim());
+        const rawValue = (parts[1] ?? "").replace(/[, ]/g, ""); // strip thousands separators
+        return { label: parts[0], value: parseFloat(rawValue) || 0 };
       })
       .filter((d) => d.label);
   }
@@ -331,6 +354,20 @@ function AdminContent({
 
   return (
     <div className="max-w-[1120px] mx-auto px-5 sm:px-6 py-8 sh-fade-up">
+      <div
+        className="mb-6 p-3 rounded-md text-[12px] leading-relaxed text-[var(--sh-ink-soft)] flex items-start gap-2"
+        style={{ background: "var(--sh-surface-2, rgba(245,158,11,0.10))", border: "1px solid rgba(245,158,11,0.30)" }}
+      >
+        <Database size={14} style={{ marginTop: 2, flexShrink: 0 }} />
+        <span>
+          <strong>Changes are saved to this browser only.</strong> Datasets you
+          add or edit here live in this device&rsquo;s local storage — they are
+          not published and won&rsquo;t appear for other visitors. To ship data
+          to the live site, edit{" "}
+          <code className="sh-chip !py-0.5 !px-1.5">src/lib/stathub/datasets.ts</code>{" "}
+          and redeploy. Export your local edits as JSON below to hand off.
+        </span>
+      </div>
       <button
         className="flex items-center gap-1.5 text-sm text-[var(--sh-ink-soft)] hover:text-[var(--sh-brand)] transition-colors mb-6 font-medium"
         onClick={() => navigate({ name: "home" })}
@@ -342,10 +379,10 @@ function AdminContent({
       <div className="flex items-end justify-between mb-8 gap-4 flex-wrap">
         <div>
           <div className="sh-eyebrow mb-1.5 flex items-center gap-1.5">
-            <Database size={12} /> Data Management · Authenticated
+            <Database size={12} /> Data Management · Local browser only
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-[var(--sh-ink)] mb-2" style={{ letterSpacing: "-1px" }}>
-            Admin Panel
+            Local Editor
           </h1>
           <p className="text-sm text-[var(--sh-ink-soft)]">
             {datasets.length} total datasets · {customCount} custom · {datasets.length - customCount} built-in · {Object.keys(notebooks).length} notebooks
@@ -357,8 +394,11 @@ function AdminContent({
               <Plus size={16} /> Add Dataset
             </button>
           )}
+          <button className="sh-btn" onClick={() => setShowPublish(!showPublish)}>
+            <Github size={14} /> Publish to GitHub
+          </button>
           <button className="sh-btn" onClick={() => setShowPwChange(!showPwChange)}>
-            <KeyRound size={14} /> Change Password
+            <KeyRound size={14} /> Change PIN
           </button>
           <button className="sh-btn" onClick={onLogout}>
             <LogOut size={14} /> Logout
@@ -366,37 +406,45 @@ function AdminContent({
         </div>
       </div>
 
+      {/* Publish to GitHub */}
+      {showPublish && (
+        <PublishPanel
+          getCustomDatasets={getCustomDatasets}
+          onClose={() => setShowPublish(false)}
+        />
+      )}
+
       {/* Password change */}
       {showPwChange && (
         <div className="sh-card p-5 mb-6 sh-fade-up">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--sh-ink-soft)] mb-4">Change Password</h3>
+          <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--sh-ink-soft)] mb-4">Change Local PIN</h3>
           <div className="grid sm:grid-cols-3 gap-3 mb-3">
-            <input type="password" className="sh-input" placeholder="Current password" value={oldPw} onChange={(e) => setOldPw(e.target.value)} />
-            <input type="password" className="sh-input" placeholder="New password (min 4 chars)" value={newPw} onChange={(e) => setNewPw(e.target.value)} />
-            <input type="password" className="sh-input" placeholder="Confirm new password" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} />
+            <input type="password" className="sh-input" placeholder="Current PIN" value={oldPw} onChange={(e) => setOldPw(e.target.value)} />
+            <input type="password" className="sh-input" placeholder="New PIN (min 4 chars)" value={newPw} onChange={(e) => setNewPw(e.target.value)} />
+            <input type="password" className="sh-input" placeholder="Confirm new PIN" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} />
           </div>
           <div className="flex gap-2">
             <button
               className="sh-btn sh-btn-primary"
               onClick={() => {
                 if (newPw !== confirmPw) {
-                  toast.error("Passwords don't match");
+                  toast.error("PINs don't match");
                   return;
                 }
                 if (newPw.length < 4) {
-                  toast.error("Password must be at least 4 characters");
+                  toast.error("PIN must be at least 4 characters");
                   return;
                 }
                 if (onChangePassword(oldPw, newPw)) {
-                  toast.success("Password changed successfully");
+                  toast.success("PIN changed");
                   setShowPwChange(false);
                   setOldPw(""); setNewPw(""); setConfirmPw("");
                 } else {
-                  toast.error("Current password is incorrect");
+                  toast.error("Current PIN is incorrect");
                 }
               }}
             >
-              <Save size={14} /> Update Password
+              <Save size={14} /> Update PIN
             </button>
             <button className="sh-btn" onClick={() => setShowPwChange(false)}>Cancel</button>
           </div>
@@ -499,15 +547,61 @@ function AdminContent({
               <FormSection title="Data Points *">
                 <Field
                   label="Data (one per line: label, value)"
-                  hint="Format: year, value — e.g. 2020, -3.1"
+                  hint="Paste two columns straight from Excel/Sheets, or upload a CSV. Comma, tab, or semicolon all work."
                 >
                   <textarea
                     className="sh-input font-mono text-xs"
                     rows={8}
                     value={form.dataPoints}
                     onChange={(e) => set("dataPoints", e.target.value)}
+                    onPaste={(e) => {
+                      // Normalize spreadsheet paste (tabs → comma) so it lands clean.
+                      const text = e.clipboardData.getData("text");
+                      if (text && /\t/.test(text)) {
+                        e.preventDefault();
+                        const normalized = text
+                          .split(/\r?\n/)
+                          .map((l) => l.split("\t").map((c) => c.trim()).join(", "))
+                          .join("\n");
+                        set("dataPoints", normalized.trim());
+                      }
+                    }}
                     placeholder={"2020, -3.1\n2021, 6.0\n2022, 3.5\n2023, 3.1\n2024, 3.2"}
                   />
+                  <div className="flex items-center justify-between mt-2 gap-2 flex-wrap">
+                    <label className="sh-btn !py-1.5 !px-3 !text-xs cursor-pointer">
+                      <Upload size={12} /> Import CSV
+                      <input
+                        type="file"
+                        accept=".csv,text/csv,text/plain"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          const reader = new FileReader();
+                          reader.onload = () => {
+                            const raw = String(reader.result || "");
+                            // Drop a header row if the second column isn't numeric.
+                            const lines = raw.split(/\r?\n/).filter((l) => l.trim());
+                            if (lines.length) {
+                              const first = lines[0].split(/[,;\t]/);
+                              if (first[1] && isNaN(parseFloat(first[1]))) lines.shift();
+                            }
+                            const normalized = lines
+                              .map((l) => l.split(/[,;\t]/).map((c) => c.trim()).slice(0, 2).join(", "))
+                              .join("\n");
+                            set("dataPoints", normalized);
+                            toast.success(`Imported ${parseDataPoints(normalized).length} rows`);
+                          };
+                          reader.readAsText(file);
+                          e.target.value = ""; // allow re-importing the same file
+                        }}
+                      />
+                    </label>
+                    <span className="text-[11px] text-[var(--sh-ink-soft)]">
+                      {parseDataPoints(form.dataPoints).length} valid row(s) parsed
+                    </span>
+                  </div>
                 </Field>
               </FormSection>
 
@@ -658,6 +752,27 @@ function AdminContent({
                       ) : (
                         <span className="sh-chip !py-0.5 !px-2 !text-[10px]" style={{ background: "#64748b18", color: "#64748b" }}>Built-in</span>
                       )}
+                      {custom && (() => {
+                        const st = syncStatus(ds.id);
+                        const cfg = st === "synced"
+                          ? { label: "Published", bg: "#10b98118", fg: "#10b981" }
+                          : st === "modified"
+                          ? { label: "Modified", bg: "#f59e0b18", fg: "#f59e0b" }
+                          : { label: "Not published", bg: "#64748b18", fg: "#94a3b8" };
+                        return (
+                          <span
+                            className="sh-chip !py-0.5 !px-2 !text-[10px]"
+                            style={{ background: cfg.bg, color: cfg.fg }}
+                            title={
+                              st === "synced" ? "Matches the version published to GitHub"
+                              : st === "modified" ? "Changed locally since last publish — publish to update the live site"
+                              : "Exists only in this browser — not yet published"
+                            }
+                          >
+                            {cfg.label}
+                          </span>
+                        );
+                      })()}
                       {ds.featured && <span className="sh-chip !py-0.5 !px-2 !text-[10px]" style={{ background: "#f59e0b18", color: "#f59e0b" }}>★</span>}
                     </div>
                     <div className="text-xs text-[var(--sh-ink-soft)] mt-0.5">

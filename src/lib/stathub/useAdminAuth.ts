@@ -1,74 +1,74 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
-const AUTH_KEY = "stathub-admin-auth";
-const PASSWORD_KEY = "stathub-admin-password";
-const DEFAULT_PASSWORD = "stathub2024";
+/**
+ * ⚠️ IMPORTANT — THIS IS NOT REAL AUTHENTICATION.
+ *
+ * StatHub is a fully static site (GitHub Pages, no backend). The "Admin"
+ * panel only edits datasets in *this browser's* localStorage — it can never
+ * change the published site or affect other visitors. There is no server to
+ * authenticate against, so any client-side "password" is decorative: it lives
+ * in the JS bundle and can be bypassed from DevTools.
+ *
+ * Because of that, this gate is intentionally a soft, single-device unlock
+ * rather than a security control. We do NOT ship a hardcoded password, we do
+ * NOT show fake "attempts remaining" lockouts, and we do NOT claim the area is
+ * protected. The user sets a local PIN on first use (stored in localStorage),
+ * purely so the editor isn't opened by accident on a shared machine. Treat
+ * everything behind it as local-only and public-readable.
+ */
 
-function getStoredPassword(): string {
-  if (typeof window === "undefined") return DEFAULT_PASSWORD;
-  return localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASSWORD;
+const UNLOCK_KEY = "stathub-admin-unlocked"; // sessionStorage flag
+const PIN_KEY = "stathub-admin-pin"; // localStorage, local convenience only
+
+function isUnlocked(): boolean {
+  if (typeof window === "undefined") return false;
+  return sessionStorage.getItem(UNLOCK_KEY) === "true";
 }
 
-function isAuthed(): boolean {
-  if (typeof window === "undefined") return false;
-  return sessionStorage.getItem(AUTH_KEY) === "true";
+function getPin(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(PIN_KEY);
 }
 
 export function useAdminAuth() {
-  const [authed, setAuthed] = useState(() => isAuthed());
-  const [attempts, setAttempts] = useState(0);
-  const [locked, setLocked] = useState(false);
-  const [lockTimer, setLockTimer] = useState(0);
+  const [authed, setAuthed] = useState(() => isUnlocked());
+  const [hasPin, setHasPin] = useState(() => getPin() !== null);
 
-  // Lockout countdown
-  useEffect(() => {
-    if (locked && lockTimer > 0) {
-      const interval = setInterval(() => {
-        setLockTimer((t) => {
-          if (t <= 1) {
-            setLocked(false);
-            setAttempts(0);
-            return 0;
-          }
-          return t - 1;
-        });
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [locked, lockTimer]);
-
-  const login = useCallback((password: string): boolean => {
-    if (locked) return false;
-    const stored = getStoredPassword();
-    if (password === stored) {
-      sessionStorage.setItem(AUTH_KEY, "true");
-      setAuthed(true);
-      setAttempts(0);
-      return true;
-    }
-    const next = attempts + 1;
-    setAttempts(next);
-    if (next >= 3) {
-      setLocked(true);
-      setLockTimer(30);
-    }
-    return false;
-  }, [attempts, locked]);
-
-  const logout = useCallback(() => {
-    sessionStorage.removeItem(AUTH_KEY);
-    setAuthed(false);
-  }, []);
-
-  const changePassword = useCallback((oldPw: string, newPw: string): boolean => {
-    const stored = getStoredPassword();
-    if (oldPw !== stored) return false;
-    if (newPw.length < 4) return false;
-    localStorage.setItem(PASSWORD_KEY, newPw);
+  // Set a PIN for the first time (local convenience only).
+  const setInitialPin = useCallback((pin: string): boolean => {
+    if (pin.length < 4) return false;
+    localStorage.setItem(PIN_KEY, pin);
+    sessionStorage.setItem(UNLOCK_KEY, "true");
+    setHasPin(true);
+    setAuthed(true);
     return true;
   }, []);
 
-  return { authed, login, logout, changePassword, attempts, locked, lockTimer };
+  // Unlock with the local PIN. No lockout — this guards nothing of value.
+  const login = useCallback((pin: string): boolean => {
+    const stored = getPin();
+    if (stored !== null && pin === stored) {
+      sessionStorage.setItem(UNLOCK_KEY, "true");
+      setAuthed(true);
+      return true;
+    }
+    return false;
+  }, []);
+
+  const logout = useCallback(() => {
+    sessionStorage.removeItem(UNLOCK_KEY);
+    setAuthed(false);
+  }, []);
+
+  const changePin = useCallback((oldPin: string, newPin: string): boolean => {
+    const stored = getPin();
+    if (stored !== null && oldPin !== stored) return false;
+    if (newPin.length < 4) return false;
+    localStorage.setItem(PIN_KEY, newPin);
+    return true;
+  }, []);
+
+  return { authed, hasPin, login, logout, setInitialPin, changePin };
 }

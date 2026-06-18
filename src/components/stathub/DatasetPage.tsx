@@ -283,6 +283,11 @@ export function DatasetPage({ id }: DatasetPageProps) {
             <span className="text-xs text-[var(--sh-ink-soft)]">
               Slope: {forecast.slope >= 0 ? "+" : ""}{forecast.slope.toFixed(2)}{ds.unit}/period
             </span>
+            <span className="text-[11px] text-[var(--sh-ink-soft)] basis-full">
+              Simple linear trend extrapolation. The shaded band is an
+              illustrative range (±standard error), not a statistical prediction
+              interval — treat projected points as indicative only.
+            </span>
           </div>
         )}
 

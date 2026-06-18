@@ -178,6 +178,18 @@ if (typeof window !== "undefined") {
     useStatHub.getState().navigate(parseHash());
   });
 
+  // Keep theme and bookmarks in sync across tabs.
+  window.addEventListener("storage", (e) => {
+    if (e.key === THEME_KEY) {
+      const t = getInitialTheme();
+      useStatHub.setState({ theme: t });
+      document.documentElement.classList.toggle("dark", t === "dark");
+    }
+    if (e.key === BOOKMARKS_KEY) {
+      useStatHub.setState({ bookmarks: getInitialBookmarks() });
+    }
+  });
+
   // Apply initial theme
   const theme = useStatHub.getState().theme;
   document.documentElement.classList.toggle("dark", theme === "dark");

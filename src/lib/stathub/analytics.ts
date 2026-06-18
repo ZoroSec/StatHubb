@@ -195,7 +195,7 @@ export function searchDatasets(
         score += 2;
         matched.push("report");
       }
-      if (ds.country && ds.country.includes(q)) {
+      if (ds.country && ds.country.toLowerCase().includes(q)) {
         score += 3;
         matched.push("country");
       }
