@@ -38,6 +38,7 @@ interface FormData {
   country: string;
   region: string;
   tags: string;
+  notebookUrl: string;
   lastUpdated: string;
   report: string;
   whyItMatters: string;
@@ -58,7 +59,7 @@ interface FormData {
 const EMPTY_FORM: FormData = {
   title: "", subtitle: "", unit: "", source: "",
   category: "economy", chartType: "bar", accent: "#6366f1",
-  country: "", region: "", tags: "", lastUpdated: new Date().toISOString().slice(0, 10),
+  country: "", region: "", tags: "", notebookUrl: "", lastUpdated: new Date().toISOString().slice(0, 10),
   report: "", whyItMatters: "", insights: "",
   keyStatsLabel1: "", keyStatsValue1: "", keyStatsYear1: "",
   keyStatsLabel2: "", keyStatsValue2: "", keyStatsYear2: "",
@@ -214,6 +215,7 @@ function AdminContent({
       country: ds.country || "",
       region: ds.region || "",
       tags: (ds.tags || []).join(", "),
+      notebookUrl: ds.notebookUrl || "",
       lastUpdated: ds.lastUpdated || new Date().toISOString().slice(0, 10),
       report: ds.report || "",
       whyItMatters: ds.whyItMatters || "",
@@ -305,6 +307,7 @@ function AdminContent({
       country: form.country || undefined,
       region: form.region || undefined,
       tags: form.tags.split(",").map((s) => s.trim()).filter(Boolean),
+      notebookUrl: form.notebookUrl.trim() || undefined,
       views: 0,
       featured: form.featured,
       editorsPick: form.editorsPick,
@@ -508,6 +511,17 @@ function AdminContent({
                 </div>
                 <Field label="Tags (comma-separated)">
                   <input className="sh-input" value={form.tags} onChange={(e) => set("tags", e.target.value)} placeholder="gdp, india, growth" />
+                </Field>
+                <Field
+                  label="Notebook URL (optional)"
+                  hint="Link to a Jupyter notebook on GitHub, Colab, or nbviewer for deeper exploration."
+                >
+                  <input
+                    className="sh-input"
+                    value={form.notebookUrl}
+                    onChange={(e) => set("notebookUrl", e.target.value)}
+                    placeholder="https://github.com/you/repo/blob/main/analysis.ipynb"
+                  />
                 </Field>
               </FormSection>
 

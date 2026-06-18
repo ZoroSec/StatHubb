@@ -13,7 +13,7 @@ import { exportPNG, exportCSV, exportXLSX, exportJSON, getShareLink, copyToClipb
 import type { ChartType } from "@/lib/stathub/types";
 import {
   ArrowLeft, Bookmark, Share2, Download, FileImage, FileText, FileSpreadsheet, FileJson,
-  TrendingUp, ChevronDown, Info, Lightbulb, AlertCircle, BookmarkCheck, GitCompare,
+  TrendingUp, ChevronDown, Info, Lightbulb, AlertCircle, BookmarkCheck, GitCompare, NotebookPen, ExternalLink,
 } from "lucide-react";
 import { useState, useRef, useMemo } from "react";
 import { toast } from "sonner";
@@ -258,7 +258,7 @@ export function DatasetPage({ id }: DatasetPageProps) {
 
         {/* Chart */}
         <div
-          className="rounded-xl p-3 border min-h-[380px]"
+          className="sh-chart-stage rounded-xl p-3 border min-h-[380px]"
           style={{ background: `linear-gradient(180deg, ${ds.accent}06, transparent)`, borderColor: "var(--sh-line)" }}
         >
           <ChartCanvas
@@ -423,7 +423,30 @@ export function DatasetPage({ id }: DatasetPageProps) {
         </div>
       )}
 
-      {/* Tags */}
+      {/* Explore notebook */}
+      {ds.notebookUrl && (
+        <a
+          href={ds.notebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sh-card flex items-center gap-3 p-4 mb-8 hover:border-[var(--sh-brand)] transition-colors group"
+          style={{ textDecoration: "none" }}
+        >
+          <div
+            className="flex items-center justify-center rounded-lg flex-shrink-0"
+            style={{ width: 40, height: 40, background: "var(--sh-brand)", color: "#fff" }}
+          >
+            <NotebookPen size={20} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-bold text-[var(--sh-ink)]">Explore the analysis notebook</div>
+            <div className="text-xs text-[var(--sh-ink-soft)] truncate">
+              Open the Jupyter notebook behind this dataset for methodology, code, and deeper analysis.
+            </div>
+          </div>
+          <ExternalLink size={16} className="text-[var(--sh-ink-soft)] group-hover:text-[var(--sh-brand)] flex-shrink-0" />
+        </a>
+      )}
       {ds.tags && ds.tags.length > 0 && (
         <div className="flex items-center gap-2 mb-8 flex-wrap">
           <span className="text-xs text-[var(--sh-ink-soft)] font-semibold">Tags:</span>

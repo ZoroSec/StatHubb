@@ -87,7 +87,7 @@ export function DatasetCard({ dataset, variant = "default", index = 0 }: Dataset
 
         {/* Mini chart */}
         <div
-          className="rounded-xl p-2 mb-3 border"
+          className="rounded-xl p-2 mb-4 border overflow-hidden"
           style={{
             background: `linear-gradient(180deg, ${dataset.accent}06, transparent)`,
             borderColor: "var(--sh-line)",
@@ -96,7 +96,7 @@ export function DatasetCard({ dataset, variant = "default", index = 0 }: Dataset
         >
           <ChartCanvas
             dataset={dataset}
-            height={variant === "compact" ? 80 : 120}
+            height={variant === "compact" ? 64 : 104}
             interactive={false}
             showAnnotations={false}
           />

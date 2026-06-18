@@ -68,6 +68,8 @@ export interface Dataset {
   country?: string;
   region?: string;
   tags?: string[];
+  // Optional external notebook (GitHub / Colab / nbviewer) for deeper exploration
+  notebookUrl?: string;
   views: number;
   editorsPick?: boolean;
   featured?: boolean;

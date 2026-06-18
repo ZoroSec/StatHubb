@@ -177,6 +177,14 @@
   background: #0a0a0f;
 }
 
+/* Big chart container: in dark mode use a refined "silvery dark" gradient
+   (deep slate → graphite) instead of letting the page background show through.
+   Overrides the inline accent gradient in dark mode only. */
+.dark .sh-chart-stage {
+  background: linear-gradient(180deg, #1c2030 0%, #2a2f42 55%, #353b52 100%) !important;
+  border-color: #2a2f42 !important;
+}
+
 /* ── Dark-mode accent brightness fix ─────────────────────────────────────────
    Accent hex colours (#6366f1 etc.) are too dim on #111118 surfaces.
    The .sh-accent-text class brightens any inline-styled accent text in dark
