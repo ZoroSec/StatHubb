@@ -1,1 +1,547 @@
-[]
+[
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "2021",
+        "value": "71.4 yrs",
+        "year": "2021",
+        "trendDir": "down",
+        "trend": "COVID impact"
+      },
+      {
+        "label": "Peak (2019)",
+        "value": "73.1 yrs",
+        "year": "2019"
+      },
+      {
+        "label": "2000",
+        "value": "66.8 yrs",
+        "year": "2000"
+      }
+    ],
+    "insights": [
+      "Life expectancy peaked in 2019 before the pandemic.",
+      "The 2019-2021 decline erased about five years of progress."
+    ],
+    "report": "Global life expectancy rose steadily from 66.8 years in 2000 to a peak of 73.1 in 2019, then fell to 71.4 in 2021 as the COVID-19 pandemic reversed roughly five years of gains.",
+    "category": "health",
+    "accent": "#10b981",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-global-life-expectancy",
+    "title": "Global Life Expectancy at Birth",
+    "subtitle": "Years — 2000 to 2021 (WHO global estimate)",
+    "unit": "yrs",
+    "chartType": "line",
+    "data": [
+      {
+        "label": "2000",
+        "value": 66.8
+      },
+      {
+        "label": "2019",
+        "value": 73.1
+      },
+      {
+        "label": "2021",
+        "value": 71.4
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Global aggregate across all WHO regions.",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "id": "who-global-hale",
+    "title": "Global Healthy Life Expectancy (HALE)",
+    "subtitle": "Years lived in good health — 2000 to 2021",
+    "unit": "yrs",
+    "source": "WHO, World Health Statistics 2025",
+    "category": "health",
+    "chartType": "bar",
+    "accent": "#06b6d4",
+    "data": [
+      {
+        "label": "2000",
+        "value": 58.1
+      },
+      {
+        "label": "2019",
+        "value": 63.5
+      },
+      {
+        "label": "2021",
+        "value": 61.9
+      }
+    ],
+    "keyStats": [
+      {
+        "label": "2021",
+        "value": "61.9 yrs",
+        "year": "2021"
+      },
+      {
+        "label": "Peak (2019)",
+        "value": "63.5 yrs",
+        "year": "2019"
+      },
+      {
+        "label": "2000",
+        "value": "58.1 yrs",
+        "year": "2000"
+      }
+    ],
+    "report": "Healthy life expectancy — years lived in good health — followed the same arc as overall life expectancy, peaking at 63.5 years in 2019 before declining to 61.9 in 2021.",
+    "insights": [
+      "HALE tracks closely with overall life expectancy.",
+      "The gap between living and living-in-good-health is roughly 9-10 years."
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Global aggregate across all WHO regions."
+    },
+    "annotations": [],
+    "tags": [],
+    "views": 0,
+    "featured": false,
+    "editorsPick": false,
+    "lastUpdated": "2025-04-01",
+    "published": true
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest (Europe)",
+        "value": "76.3 yrs"
+      },
+      {
+        "label": "Lowest (Africa)",
+        "value": "63.2 yrs"
+      },
+      {
+        "label": "Gap",
+        "value": "13.1 yrs"
+      }
+    ],
+    "insights": [
+      "Europe and the Western Pacific lead; Africa trails.",
+      "The regional gap remains over 13 years."
+    ],
+    "report": "In 2021 life expectancy ranged from 63.2 years in the African Region to 76.3 in the European Region — a 13-year gap reflecting persistent global health inequality.",
+    "category": "health",
+    "accent": "#3b82f6",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-life-expectancy-by-region",
+    "title": "Life Expectancy by WHO Region",
+    "subtitle": "Years at birth — 2021",
+    "unit": "yrs",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Africa",
+        "value": 63.2
+      },
+      {
+        "label": "Americas",
+        "value": 75.2
+      },
+      {
+        "label": "SE Asia",
+        "value": 68.2
+      },
+      {
+        "label": "Europe",
+        "value": 76.3
+      },
+      {
+        "label": "E. Med.",
+        "value": 68.2
+      },
+      {
+        "label": "W. Pacific",
+        "value": 77.4
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Six WHO regions, latest available year (2021).",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Healthier Populations",
+        "value": "1,400M",
+        "trendDir": "up",
+        "trend": "Exceeded"
+      },
+      {
+        "label": "Health Emergencies",
+        "value": "637M",
+        "trendDir": "neutral",
+        "trend": "Off-track"
+      },
+      {
+        "label": "Universal Coverage",
+        "value": "431M",
+        "trendDir": "down",
+        "trend": "Off-track"
+      }
+    ],
+    "insights": [
+      "Healthier Populations exceeded its 1 billion target.",
+      "Universal Health Coverage is furthest behind at 431 million."
+    ],
+    "report": "Of WHO's three flagship 'billion' targets, only Healthier Populations has been exceeded (1.4 billion reached against a 1 billion goal). Universal Health Coverage and Health Emergencies Protection both remain off-track.",
+    "category": "health",
+    "accent": "#8b5cf6",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-triple-billion-progress",
+    "title": "WHO Triple Billion Targets — Progress",
+    "subtitle": "Millions of people reached — 2024 progress",
+    "unit": "M",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Healthier\nPopulations",
+        "value": 1400
+      },
+      {
+        "label": "Universal\nHealth\nCoverage",
+        "value": 431
+      },
+      {
+        "label": "Health\nEmergencies\nProtection",
+        "value": 637
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "WHO GPW13 monitoring, 2024 progress against 2025 targets.",
+      "lastUpdated": "2025-04-01",
+      "caveats": "Two of three targets remain off-track."
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Maternal mortality",
+        "value": "197 /100k",
+        "year": "2023"
+      },
+      {
+        "label": "Under-5 mortality",
+        "value": "37 /1k",
+        "year": "2023"
+      },
+      {
+        "label": "Tobacco use",
+        "value": "20.9%",
+        "year": "2022"
+      }
+    ],
+    "insights": [
+      "Maternal and child mortality have fallen sharply but remain above target.",
+      "Most indicators need faster progress to hit 2030 goals."
+    ],
+    "report": "Most health-related SDG indicators have improved since their baselines but are assessed as needing acceleration to meet 2030 targets. Only alcohol per-capita consumption is currently on track.",
+    "category": "health",
+    "accent": "#f59e0b",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-sdg-health-indicators",
+    "title": "Health-Related SDG Indicators (Latest)",
+    "subtitle": "Latest reported value per indicator — toward 2030 targets",
+    "unit": " (mixed)",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Maternal Mortality Ratio",
+        "value": 197
+      },
+      {
+        "label": "Under-5 Mortality Rate",
+        "value": 37
+      },
+      {
+        "label": "Premature NCD Mortality Probability",
+        "value": 18
+      },
+      {
+        "label": "TB Incidence",
+        "value": 134
+      },
+      {
+        "label": "HIV Incidence",
+        "value": 0.17
+      },
+      {
+        "label": "Tobacco Use Prevalence",
+        "value": 20.9
+      },
+      {
+        "label": "Alcohol Per Capita Consumption",
+        "value": 5
+      },
+      {
+        "label": "Road Traffic Death Rate",
+        "value": 14.9
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Health-related SDG indicators, latest reported year per indicator.",
+      "lastUpdated": "2025-04-01",
+      "caveats": "Indicators with non-numeric latest values are omitted from the chart."
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest (Africa)",
+        "value": "67 /1k"
+      },
+      {
+        "label": "Lowest (Europe)",
+        "value": "8 /1k"
+      },
+      {
+        "label": "Ratio",
+        "value": "8x"
+      }
+    ],
+    "insights": [
+      "Africa's under-5 mortality is roughly 8x Europe's.",
+      "Child survival remains the clearest regional divide."
+    ],
+    "report": "Under-5 mortality varies more than eight-fold across WHO regions, from 8 per 1,000 live births in Europe to 67 in Africa — among the starkest health inequalities globally.",
+    "category": "health",
+    "accent": "#ec4899",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-under5-mortality-by-region",
+    "title": "Under-5 Mortality by WHO Region",
+    "subtitle": "Deaths per 1,000 live births — latest available",
+    "unit": "/1k",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Africa",
+        "value": 67
+      },
+      {
+        "label": "Americas",
+        "value": 13
+      },
+      {
+        "label": "SE Asia",
+        "value": 27
+      },
+      {
+        "label": "Europe",
+        "value": 8
+      },
+      {
+        "label": "E. Med.",
+        "value": 24
+      },
+      {
+        "label": "W. Pacific",
+        "value": 11
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Six WHO regions, latest available year.",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest (Africa)",
+        "value": "442 /100k"
+      },
+      {
+        "label": "Lowest (Europe)",
+        "value": "11 /100k"
+      },
+      {
+        "label": "Ratio",
+        "value": "40x"
+      }
+    ],
+    "insights": [
+      "Africa's maternal mortality is ~40x Europe's.",
+      "The gap dwarfs that of most other health indicators."
+    ],
+    "report": "Maternal mortality shows the widest regional disparity of any indicator: 442 deaths per 100,000 live births in the African Region versus 11 in Europe — a 40-fold difference.",
+    "category": "health",
+    "accent": "#ef4444",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-maternal-mortality-by-region",
+    "title": "Maternal Mortality by WHO Region",
+    "subtitle": "Deaths per 100,000 live births — latest available",
+    "unit": "/100k",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Africa",
+        "value": 442
+      },
+      {
+        "label": "Americas",
+        "value": 59
+      },
+      {
+        "label": "SE Asia",
+        "value": 96
+      },
+      {
+        "label": "Europe",
+        "value": 11
+      },
+      {
+        "label": "E. Med.",
+        "value": 167
+      },
+      {
+        "label": "W. Pacific",
+        "value": 35
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Six WHO regions, latest available year.",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Largest gap (LMIC)",
+        "value": "19.8 pp"
+      },
+      {
+        "label": "Global median",
+        "value": "18.7 pp"
+      },
+      {
+        "label": "Driver",
+        "value": "Education"
+      }
+    ],
+    "insights": [
+      "Education gaps (~19pp) exceed economic and geographic gaps.",
+      "The pattern holds across all income groups."
+    ],
+    "report": "Education is the single largest driver of childhood immunization inequality: across income groups, DTP3 coverage gaps tied to a mother's education hover near 19 percentage points — far wider than economic or urban-rural gaps.",
+    "category": "health",
+    "accent": "#10b981",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-dtp3-education-inequality",
+    "title": "DTP3 Vaccine Inequality by Education",
+    "subtitle": "Coverage gap (percentage points) by mother's education — 2014-2023",
+    "unit": "pp",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Low-Income",
+        "value": 18.6
+      },
+      {
+        "label": "Lower-Middle-Income",
+        "value": 19.8
+      },
+      {
+        "label": "Upper-Middle-Income",
+        "value": 18.2
+      },
+      {
+        "label": "Global Median",
+        "value": 18.7
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "DTP3 coverage inequality decomposition, 2014-2023.",
+      "lastUpdated": "2025-04-01",
+      "caveats": "Gaps measured in percentage points between highest and lowest strata."
+    }
+  }
+]
