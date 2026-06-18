@@ -12,7 +12,7 @@ import { validateDataset } from "@/lib/stathub/validateDataset";
 import type { Dataset, ChartType, EventAnnotation } from "@/lib/stathub/types";
 import {
   ArrowLeft, Plus, Edit3, Trash2, Save, X, Database, Eye, EyeOff,
-  ChevronDown, ChevronUp, Sparkles, Lock, LogOut, KeyRound, Upload, FileCode2, Github,
+  ChevronDown, ChevronUp, Sparkles, Lock, LogOut, Upload, FileCode2, Github,
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
@@ -72,48 +72,41 @@ const EMPTY_FORM: FormData = {
 
 export function AdminPage() {
   const { navigate } = useStatHub();
-  const { authed, hasPin, login, logout, setInitialPin, changePin } = useAdminAuth();
+  const { authed, login, logout } = useAdminAuth();
 
   if (!authed) {
     return (
       <PasswordGate
-        hasPin={hasPin}
         onLogin={login}
-        onSetPin={setInitialPin}
         onBack={() => navigate({ name: "home" })}
       />
     );
   }
 
-  return <AdminContent onLogout={logout} onChangePassword={changePin} />;
+  return <AdminContent onLogout={logout} />;
 }
 
 // ── Password Gate ────────────────────────────────────────────────────────────
 
 function PasswordGate({
-  hasPin, onLogin, onSetPin, onBack,
+  onLogin, onBack,
 }: {
-  hasPin: boolean;
-  onLogin: (pin: string) => boolean;
-  onSetPin: (pin: string) => boolean;
+  onLogin: (password: string) => Promise<boolean>;
   onBack: () => void;
 }) {
-  const [pin, setPin] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (hasPin) {
-      const ok = onLogin(pin);
-      if (!ok) {
-        setError("That PIN doesn't match the one saved in this browser.");
-        setPin("");
-      }
-    } else {
-      const ok = onSetPin(pin);
-      if (!ok) {
-        setError("Choose a PIN of at least 4 characters.");
-      }
+    setBusy(true);
+    setError("");
+    const ok = await onLogin(password);
+    setBusy(false);
+    if (!ok) {
+      setError("Incorrect password.");
+      setPassword("");
     }
   }
 
@@ -124,42 +117,28 @@ function PasswordGate({
           <Lock size={28} />
         </div>
         <h1 className="text-2xl font-bold text-[var(--sh-ink)] mb-2" style={{ letterSpacing: "-0.5px" }}>
-          Local Editor
+          Admin Access
         </h1>
-        <p className="text-sm text-[var(--sh-ink-soft)] mb-4">
-          {hasPin
-            ? "Enter your local PIN to open the dataset editor."
-            : "Set a local PIN to open the dataset editor."}
+        <p className="text-sm text-[var(--sh-ink-soft)] mb-5">
+          Enter the owner password to manage datasets.
         </p>
-
-        {/* Honest disclosure: this is not access control. */}
-        <div
-          className="text-[11px] leading-relaxed text-[var(--sh-ink-soft)] mb-5 p-3 rounded-md"
-          style={{ background: "var(--sh-surface-2, rgba(127,127,127,0.08))", textAlign: "left" }}
-        >
-          <strong>Local only.</strong> This is a static site with no server.
-          Anything you add or edit here is saved in <em>this browser</em> only —
-          it never changes the published site or what other visitors see. The
-          PIN just prevents accidental edits on a shared device; it is not
-          security.
-        </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             type="password"
-            inputMode="numeric"
             className="sh-input text-center"
-            placeholder={hasPin ? "Local PIN" : "Choose a PIN (4+ chars)"}
-            value={pin}
-            onChange={(e) => { setPin(e.target.value); setError(""); }}
+            placeholder="Owner password"
+            value={password}
+            onChange={(e) => { setPassword(e.target.value); setError(""); }}
             autoFocus
           />
           {error && <p className="text-xs text-[#ef4444]">{error}</p>}
           <button
             type="submit"
             className="sh-btn sh-btn-primary w-full justify-center"
+            disabled={busy || !password}
           >
-            <Lock size={14} /> {hasPin ? "Open Editor" : "Set PIN & Open"}
+            <Lock size={14} /> {busy ? "Checking…" : "Unlock"}
           </button>
         </form>
         <button
@@ -177,10 +156,8 @@ function PasswordGate({
 
 function AdminContent({
   onLogout,
-  onChangePassword,
 }: {
   onLogout: () => void;
-  onChangePassword: (oldPw: string, newPw: string) => boolean;
 }) {
   const { navigate } = useStatHub();
   const { datasets, addDataset, deleteDataset, isCustom, getCustomDatasets, syncStatus } = useDatasets();
@@ -189,11 +166,7 @@ function AdminContent({
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
-  const [showPwChange, setShowPwChange] = useState(false);
   const [showPublish, setShowPublish] = useState(false);
-  const [oldPw, setOldPw] = useState("");
-  const [newPw, setNewPw] = useState("");
-  const [confirmPw, setConfirmPw] = useState("");
 
   const customCount = datasets.filter((d) => isCustom(d.id)).length;
 
@@ -467,9 +440,6 @@ function AdminContent({
           <button className="sh-btn" onClick={() => setShowPublish(!showPublish)}>
             <Github size={14} /> Publish to GitHub
           </button>
-          <button className="sh-btn" onClick={() => setShowPwChange(!showPwChange)}>
-            <KeyRound size={14} /> Change PIN
-          </button>
           <button className="sh-btn" onClick={onLogout}>
             <LogOut size={14} /> Logout
           </button>
@@ -482,43 +452,6 @@ function AdminContent({
           getCustomDatasets={getCustomDatasets}
           onClose={() => setShowPublish(false)}
         />
-      )}
-
-      {/* Password change */}
-      {showPwChange && (
-        <div className="sh-card p-5 mb-6 sh-fade-up">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--sh-ink-soft)] mb-4">Change Local PIN</h3>
-          <div className="grid sm:grid-cols-3 gap-3 mb-3">
-            <input type="password" className="sh-input" placeholder="Current PIN" value={oldPw} onChange={(e) => setOldPw(e.target.value)} />
-            <input type="password" className="sh-input" placeholder="New PIN (min 4 chars)" value={newPw} onChange={(e) => setNewPw(e.target.value)} />
-            <input type="password" className="sh-input" placeholder="Confirm new PIN" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} />
-          </div>
-          <div className="flex gap-2">
-            <button
-              className="sh-btn sh-btn-primary"
-              onClick={() => {
-                if (newPw !== confirmPw) {
-                  toast.error("PINs don't match");
-                  return;
-                }
-                if (newPw.length < 4) {
-                  toast.error("PIN must be at least 4 characters");
-                  return;
-                }
-                if (onChangePassword(oldPw, newPw)) {
-                  toast.success("PIN changed");
-                  setShowPwChange(false);
-                  setOldPw(""); setNewPw(""); setConfirmPw("");
-                } else {
-                  toast.error("Current PIN is incorrect");
-                }
-              }}
-            >
-              <Save size={14} /> Update PIN
-            </button>
-            <button className="sh-btn" onClick={() => setShowPwChange(false)}>Cancel</button>
-          </div>
-        </div>
       )}
 
       {/* Form */}

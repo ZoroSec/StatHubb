@@ -3,56 +3,66 @@
 import { useState, useCallback } from "react";
 
 /**
- * ⚠️ IMPORTANT — THIS IS NOT REAL AUTHENTICATION.
+ * Admin gate — single OWNER password (casual protection).
  *
- * StatHub is a fully static site (GitHub Pages, no backend). The "Admin"
- * panel only edits datasets in *this browser's* localStorage — it can never
- * change the published site or affect other visitors. There is no server to
- * authenticate against, so any client-side "password" is decorative: it lives
- * in the JS bundle and can be bypassed from DevTools.
+ * This is a casual deterrent, NOT real security. StatHub is a static site
+ * with no backend, so this check runs in the visitor's browser and a determined
+ * person could bypass it via DevTools or brute-force the hash. That is an
+ * accepted, understood limitation.
  *
- * Because of that, this gate is intentionally a soft, single-device unlock
- * rather than a security control. We do NOT ship a hardcoded password, we do
- * NOT show fake "attempts remaining" lockouts, and we do NOT claim the area is
- * protected. The user sets a local PIN on first use (stored in localStorage),
- * purely so the editor isn't opened by accident on a shared machine. Treat
- * everything behind it as local-only and public-readable.
+ * What it DOES provide:
+ *   - A single fixed owner password (set by you, below) — visitors cannot
+ *     "set their own" password and let themselves in.
+ *   - The password is not stored in plain text in the bundle; only a salted
+ *     SHA-256 hash is shipped, so a casual source-reader won't see it.
+ *
+ * What actually protects the live site (the real wall): publishing requires
+ * your GitHub token, which is never in the code. Someone who bypasses this
+ * gate can only edit their OWN browser's local copy — they cannot change the
+ * deployed site or what other users see.
+ *
+ * ── TO CHANGE THE PASSWORD ───────────────────────────────────────────────────
+ * Generate a new hash (keep the same SALT) and paste it into OWNER_PASSWORD_HASH:
+ *
+ *   Node:   node -e "const c=require('crypto');console.log(c.createHash('sha256').update('stathub-v1-salt'+'YOUR_PASSWORD').digest('hex'))"
+ *   Python: python3 -c "import hashlib;print(hashlib.sha256(('stathub-v1-salt'+'YOUR_PASSWORD').encode()).hexdigest())"
+ *
+ * Default password (CHANGE THIS): stathub-admin
  */
 
-const UNLOCK_KEY = "stathub-admin-unlocked"; // sessionStorage flag
-const PIN_KEY = "stathub-admin-pin"; // localStorage, local convenience only
+const SALT = "stathub-v1-salt";
+const OWNER_PASSWORD_HASH =
+  "cf92b23d403e39cc7aa5a730c140fb2a6248a1755c5f31a55949313419ee1112";
+
+const UNLOCK_KEY = "stathub-admin-unlocked"; // sessionStorage flag (per tab session)
 
 function isUnlocked(): boolean {
   if (typeof window === "undefined") return false;
   return sessionStorage.getItem(UNLOCK_KEY) === "true";
 }
 
-function getPin(): string | null {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem(PIN_KEY);
+async function hashPassword(pw: string): Promise<string> {
+  const bytes = new TextEncoder().encode(SALT + pw);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 export function useAdminAuth() {
   const [authed, setAuthed] = useState(() => isUnlocked());
-  const [hasPin, setHasPin] = useState(() => getPin() !== null);
 
-  // Set a PIN for the first time (local convenience only).
-  const setInitialPin = useCallback((pin: string): boolean => {
-    if (pin.length < 4) return false;
-    localStorage.setItem(PIN_KEY, pin);
-    sessionStorage.setItem(UNLOCK_KEY, "true");
-    setHasPin(true);
-    setAuthed(true);
-    return true;
-  }, []);
-
-  // Unlock with the local PIN. No lockout — this guards nothing of value.
-  const login = useCallback((pin: string): boolean => {
-    const stored = getPin();
-    if (stored !== null && pin === stored) {
-      sessionStorage.setItem(UNLOCK_KEY, "true");
-      setAuthed(true);
-      return true;
+  // Verify against the owner password hash. Returns true on success.
+  const login = useCallback(async (password: string): Promise<boolean> => {
+    try {
+      const h = await hashPassword(password);
+      if (h === OWNER_PASSWORD_HASH) {
+        sessionStorage.setItem(UNLOCK_KEY, "true");
+        setAuthed(true);
+        return true;
+      }
+    } catch {
+      /* crypto unavailable — fail closed */
     }
     return false;
   }, []);
@@ -62,13 +72,5 @@ export function useAdminAuth() {
     setAuthed(false);
   }, []);
 
-  const changePin = useCallback((oldPin: string, newPin: string): boolean => {
-    const stored = getPin();
-    if (stored !== null && oldPin !== stored) return false;
-    if (newPin.length < 4) return false;
-    localStorage.setItem(PIN_KEY, newPin);
-    return true;
-  }, []);
-
-  return { authed, hasPin, login, logout, setInitialPin, changePin };
+  return { authed, login, logout };
 }
