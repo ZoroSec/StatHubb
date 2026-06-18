@@ -45,7 +45,7 @@ export function DatasetCard({ dataset, variant = "default", index = 0 }: Dataset
           </div>
           <div className="flex items-center gap-0.5 flex-shrink-0">
             <a
-              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/#/dataset/${dataset.id}`}
+              href={`#/dataset/${dataset.id}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}

@@ -318,7 +318,7 @@ export function HomePage() {
         {DATASETS.filter((d) => d.published).length > 12 && (
           <div className="flex justify-center mt-8">
             <a
-              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/#/all`}
+              href={`#/all`}
               target="_blank"
               rel="noopener noreferrer"
               className="sh-btn sh-btn-primary !px-6 !py-3"

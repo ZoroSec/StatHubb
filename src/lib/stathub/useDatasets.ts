@@ -6,10 +6,28 @@ import type { Dataset } from "./types";
 
 const CUSTOM_KEY = "stathub-custom-datasets";
 
-// Path to the JSON committed by the GitHub publish flow. Respects basePath
-// (the site is served from /<repo>/ on GitHub Pages).
-const PUBLISHED_URL =
-  (process.env.NEXT_PUBLIC_BASE_PATH || "") + "/data/custom-datasets.json";
+// Path to the JSON committed by the GitHub publish flow.
+//
+// The site may be served from a subpath on GitHub Pages (e.g. /StatHubb/).
+// We can't rely on an env var here because the deploy workflow sets the base
+// path via GITHUB_REPO (a build-time-only var), not NEXT_PUBLIC_BASE_PATH.
+// So we derive the base path at runtime from the document's own location,
+// which is always correct regardless of how the build was configured.
+function getBasePath(): string {
+  // Build-time inlined value, if it was set (covers local/dev overrides).
+  const envBase = process.env.NEXT_PUBLIC_BASE_PATH;
+  if (envBase) return envBase;
+  if (typeof window === "undefined") return "";
+  // On GitHub Pages project sites the path starts with /<repo>/...
+  // Take the first path segment as the base (e.g. "/StatHubb").
+  const seg = window.location.pathname.split("/").filter(Boolean)[0];
+  // If the first segment looks like an app route (has a hash route instead),
+  // pathname will just be "/<repo>/" so this is safe; for user/root pages
+  // there is no repo segment and we return "".
+  return seg ? `/${seg}` : "";
+}
+
+const PUBLISHED_URL = getBasePath() + "/data/custom-datasets.json";
 
 function loadCustom(): Dataset[] {
   if (typeof window === "undefined") return [];
