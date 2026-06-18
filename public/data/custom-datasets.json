@@ -1,1 +1,1181 @@
-[]
+[
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "2021",
+        "value": "71.4 yrs",
+        "year": "2021",
+        "trendDir": "down",
+        "trend": "COVID impact"
+      },
+      {
+        "label": "Peak (2019)",
+        "value": "73.1 yrs",
+        "year": "2019"
+      },
+      {
+        "label": "2000",
+        "value": "66.8 yrs",
+        "year": "2000"
+      }
+    ],
+    "insights": [
+      "Life expectancy peaked in 2019 before the pandemic.",
+      "The 2019-2021 decline erased about five years of progress."
+    ],
+    "report": "Global life expectancy rose steadily from 66.8 years in 2000 to a peak of 73.1 in 2019, then fell to 71.4 in 2021 as the COVID-19 pandemic reversed roughly five years of gains.",
+    "category": "health",
+    "accent": "#10b981",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-global-life-expectancy",
+    "title": "Global Life Expectancy at Birth",
+    "subtitle": "Years — 2000 to 2021 (WHO global estimate)",
+    "unit": "yrs",
+    "chartType": "line",
+    "data": [
+      {
+        "label": "2000",
+        "value": 66.8
+      },
+      {
+        "label": "2019",
+        "value": 73.1
+      },
+      {
+        "label": "2021",
+        "value": 71.4
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Global aggregate across all WHO regions.",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "id": "who-global-hale",
+    "title": "Global Healthy Life Expectancy (HALE)",
+    "subtitle": "Years lived in good health — 2000 to 2021",
+    "unit": "yrs",
+    "source": "WHO, World Health Statistics 2025",
+    "category": "health",
+    "chartType": "bar",
+    "accent": "#06b6d4",
+    "data": [
+      {
+        "label": "2000",
+        "value": 58.1
+      },
+      {
+        "label": "2019",
+        "value": 63.5
+      },
+      {
+        "label": "2021",
+        "value": 61.9
+      }
+    ],
+    "keyStats": [
+      {
+        "label": "2021",
+        "value": "61.9 yrs",
+        "year": "2021"
+      },
+      {
+        "label": "Peak (2019)",
+        "value": "63.5 yrs",
+        "year": "2019"
+      },
+      {
+        "label": "2000",
+        "value": "58.1 yrs",
+        "year": "2000"
+      }
+    ],
+    "report": "Healthy life expectancy — years lived in good health — followed the same arc as overall life expectancy, peaking at 63.5 years in 2019 before declining to 61.9 in 2021.",
+    "insights": [
+      "HALE tracks closely with overall life expectancy.",
+      "The gap between living and living-in-good-health is roughly 9-10 years."
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Global aggregate across all WHO regions."
+    },
+    "annotations": [],
+    "tags": [],
+    "views": 0,
+    "featured": false,
+    "editorsPick": false,
+    "lastUpdated": "2025-04-01",
+    "published": true
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest (Europe)",
+        "value": "76.3 yrs"
+      },
+      {
+        "label": "Lowest (Africa)",
+        "value": "63.2 yrs"
+      },
+      {
+        "label": "Gap",
+        "value": "13.1 yrs"
+      }
+    ],
+    "insights": [
+      "Europe and the Western Pacific lead; Africa trails.",
+      "The regional gap remains over 13 years."
+    ],
+    "report": "In 2021 life expectancy ranged from 63.2 years in the African Region to 76.3 in the European Region — a 13-year gap reflecting persistent global health inequality.",
+    "category": "health",
+    "accent": "#3b82f6",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-life-expectancy-by-region",
+    "title": "Life Expectancy by WHO Region",
+    "subtitle": "Years at birth — 2021",
+    "unit": "yrs",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Africa",
+        "value": 63.2
+      },
+      {
+        "label": "Americas",
+        "value": 75.2
+      },
+      {
+        "label": "SE Asia",
+        "value": 68.2
+      },
+      {
+        "label": "Europe",
+        "value": 76.3
+      },
+      {
+        "label": "E. Med.",
+        "value": 68.2
+      },
+      {
+        "label": "W. Pacific",
+        "value": 77.4
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Six WHO regions, latest available year (2021).",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Healthier Populations",
+        "value": "1,400M",
+        "trendDir": "up",
+        "trend": "Exceeded"
+      },
+      {
+        "label": "Health Emergencies",
+        "value": "637M",
+        "trendDir": "neutral",
+        "trend": "Off-track"
+      },
+      {
+        "label": "Universal Coverage",
+        "value": "431M",
+        "trendDir": "down",
+        "trend": "Off-track"
+      }
+    ],
+    "insights": [
+      "Healthier Populations exceeded its 1 billion target.",
+      "Universal Health Coverage is furthest behind at 431 million."
+    ],
+    "report": "Of WHO's three flagship 'billion' targets, only Healthier Populations has been exceeded (1.4 billion reached against a 1 billion goal). Universal Health Coverage and Health Emergencies Protection both remain off-track.",
+    "category": "health",
+    "accent": "#8b5cf6",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-triple-billion-progress",
+    "title": "WHO Triple Billion Targets — Progress",
+    "subtitle": "Millions of people reached — 2024 progress",
+    "unit": "M",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Healthier\nPopulations",
+        "value": 1400
+      },
+      {
+        "label": "Universal\nHealth\nCoverage",
+        "value": 431
+      },
+      {
+        "label": "Health\nEmergencies\nProtection",
+        "value": 637
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "WHO GPW13 monitoring, 2024 progress against 2025 targets.",
+      "lastUpdated": "2025-04-01",
+      "caveats": "Two of three targets remain off-track."
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Maternal mortality",
+        "value": "197 /100k",
+        "year": "2023"
+      },
+      {
+        "label": "Under-5 mortality",
+        "value": "37 /1k",
+        "year": "2023"
+      },
+      {
+        "label": "Tobacco use",
+        "value": "20.9%",
+        "year": "2022"
+      }
+    ],
+    "insights": [
+      "Maternal and child mortality have fallen sharply but remain above target.",
+      "Most indicators need faster progress to hit 2030 goals."
+    ],
+    "report": "Most health-related SDG indicators have improved since their baselines but are assessed as needing acceleration to meet 2030 targets. Only alcohol per-capita consumption is currently on track.",
+    "category": "health",
+    "accent": "#f59e0b",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-sdg-health-indicators",
+    "title": "Health-Related SDG Indicators (Latest)",
+    "subtitle": "Latest reported value per indicator — toward 2030 targets",
+    "unit": " (mixed)",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Maternal Mortality Ratio",
+        "value": 197
+      },
+      {
+        "label": "Under-5 Mortality Rate",
+        "value": 37
+      },
+      {
+        "label": "Premature NCD Mortality Probability",
+        "value": 18
+      },
+      {
+        "label": "TB Incidence",
+        "value": 134
+      },
+      {
+        "label": "HIV Incidence",
+        "value": 0.17
+      },
+      {
+        "label": "Tobacco Use Prevalence",
+        "value": 20.9
+      },
+      {
+        "label": "Alcohol Per Capita Consumption",
+        "value": 5
+      },
+      {
+        "label": "Road Traffic Death Rate",
+        "value": 14.9
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Health-related SDG indicators, latest reported year per indicator.",
+      "lastUpdated": "2025-04-01",
+      "caveats": "Indicators with non-numeric latest values are omitted from the chart."
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest (Africa)",
+        "value": "67 /1k"
+      },
+      {
+        "label": "Lowest (Europe)",
+        "value": "8 /1k"
+      },
+      {
+        "label": "Ratio",
+        "value": "8x"
+      }
+    ],
+    "insights": [
+      "Africa's under-5 mortality is roughly 8x Europe's.",
+      "Child survival remains the clearest regional divide."
+    ],
+    "report": "Under-5 mortality varies more than eight-fold across WHO regions, from 8 per 1,000 live births in Europe to 67 in Africa — among the starkest health inequalities globally.",
+    "category": "health",
+    "accent": "#ec4899",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-under5-mortality-by-region",
+    "title": "Under-5 Mortality by WHO Region",
+    "subtitle": "Deaths per 1,000 live births — latest available",
+    "unit": "/1k",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Africa",
+        "value": 67
+      },
+      {
+        "label": "Americas",
+        "value": 13
+      },
+      {
+        "label": "SE Asia",
+        "value": 27
+      },
+      {
+        "label": "Europe",
+        "value": 8
+      },
+      {
+        "label": "E. Med.",
+        "value": 24
+      },
+      {
+        "label": "W. Pacific",
+        "value": 11
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Six WHO regions, latest available year.",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest (Africa)",
+        "value": "442 /100k"
+      },
+      {
+        "label": "Lowest (Europe)",
+        "value": "11 /100k"
+      },
+      {
+        "label": "Ratio",
+        "value": "40x"
+      }
+    ],
+    "insights": [
+      "Africa's maternal mortality is ~40x Europe's.",
+      "The gap dwarfs that of most other health indicators."
+    ],
+    "report": "Maternal mortality shows the widest regional disparity of any indicator: 442 deaths per 100,000 live births in the African Region versus 11 in Europe — a 40-fold difference.",
+    "category": "health",
+    "accent": "#ef4444",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-maternal-mortality-by-region",
+    "title": "Maternal Mortality by WHO Region",
+    "subtitle": "Deaths per 100,000 live births — latest available",
+    "unit": "/100k",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Africa",
+        "value": 442
+      },
+      {
+        "label": "Americas",
+        "value": 59
+      },
+      {
+        "label": "SE Asia",
+        "value": 96
+      },
+      {
+        "label": "Europe",
+        "value": 11
+      },
+      {
+        "label": "E. Med.",
+        "value": 167
+      },
+      {
+        "label": "W. Pacific",
+        "value": 35
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "Six WHO regions, latest available year.",
+      "lastUpdated": "2025-04-01",
+      "caveats": ""
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Largest gap (LMIC)",
+        "value": "19.8 pp"
+      },
+      {
+        "label": "Global median",
+        "value": "18.7 pp"
+      },
+      {
+        "label": "Driver",
+        "value": "Education"
+      }
+    ],
+    "insights": [
+      "Education gaps (~19pp) exceed economic and geographic gaps.",
+      "The pattern holds across all income groups."
+    ],
+    "report": "Education is the single largest driver of childhood immunization inequality: across income groups, DTP3 coverage gaps tied to a mother's education hover near 19 percentage points — far wider than economic or urban-rural gaps.",
+    "category": "health",
+    "accent": "#10b981",
+    "country": null,
+    "region": null,
+    "tags": [],
+    "lastUpdated": "2025-04-01",
+    "source": "WHO, World Health Statistics 2025",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "id": "who-dtp3-education-inequality",
+    "title": "DTP3 Vaccine Inequality by Education",
+    "subtitle": "Coverage gap (percentage points) by mother's education — 2014-2023",
+    "unit": "pp",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Low-Income",
+        "value": 18.6
+      },
+      {
+        "label": "Lower-Middle-Income",
+        "value": 19.8
+      },
+      {
+        "label": "Upper-Middle-Income",
+        "value": 18.2
+      },
+      {
+        "label": "Global Median",
+        "value": 18.7
+      }
+    ],
+    "methodology": {
+      "source": "WHO, World Health Statistics 2025",
+      "collectionMethod": "WHO member-state reporting and modelled estimates.",
+      "coverage": "DTP3 coverage inequality decomposition, 2014-2023.",
+      "lastUpdated": "2025-04-01",
+      "caveats": "Gaps measured in percentage points between highest and lowest strata."
+    }
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "2026",
+        "value": "5.65B",
+        "year": "2026",
+        "trendDir": "up"
+      },
+      {
+        "label": "2000",
+        "value": "25M",
+        "year": "2000"
+      },
+      {
+        "label": "Growth",
+        "value": "226x"
+      }
+    ],
+    "insights": [
+      "Adoption is now near two-thirds of humanity.",
+      "Growth has slowed to incremental yearly additions from a vast base."
+    ],
+    "report": "Social media users grew from roughly 25 million in 2000 to about 5.65 billion in 2026 — a 226-fold increase that now covers roughly 65% of the world's population.",
+    "category": "technology",
+    "accent": "#3b82f6",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "social-total-users",
+    "title": "Total Social Media Users Worldwide",
+    "subtitle": "Monthly active users (billions) — 2000 to 2026",
+    "unit": "B",
+    "chartType": "area",
+    "data": [
+      {
+        "label": "2000",
+        "value": 0.025
+      },
+      {
+        "label": "2006",
+        "value": 0.5
+      },
+      {
+        "label": "2010",
+        "value": 1
+      },
+      {
+        "label": "2014",
+        "value": 2
+      },
+      {
+        "label": "2018",
+        "value": 3.2
+      },
+      {
+        "label": "2020",
+        "value": 3.9
+      },
+      {
+        "label": "2022",
+        "value": 4.7
+      },
+      {
+        "label": "2024",
+        "value": 5.2
+      },
+      {
+        "label": "2026",
+        "value": 5.65
+      }
+    ]
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "2025",
+        "value": "3.07B",
+        "year": "2025",
+        "trendDir": "neutral"
+      },
+      {
+        "label": "2008",
+        "value": "100M",
+        "year": "2008"
+      },
+      {
+        "label": "First to 1B",
+        "value": "Oct 2012"
+      }
+    ],
+    "insights": [
+      "Facebook was the first platform to reach 1 billion users.",
+      "Growth has effectively plateaued since 2022."
+    ],
+    "report": "Facebook grew from 100 million users in 2008 to over 3 billion by 2023, becoming the first social network to pass one billion monthly users in 2012. Growth has since flattened near 3.07 billion.",
+    "category": "technology",
+    "accent": "#8b5cf6",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "facebook-mau",
+    "title": "Facebook Monthly Active Users",
+    "subtitle": "Millions of MAU — 2008 to 2025",
+    "unit": "M",
+    "chartType": "line",
+    "data": [
+      {
+        "label": "2008",
+        "value": 100
+      },
+      {
+        "label": "2009",
+        "value": 242
+      },
+      {
+        "label": "2010",
+        "value": 482
+      },
+      {
+        "label": "2011",
+        "value": 739
+      },
+      {
+        "label": "2012",
+        "value": 955
+      },
+      {
+        "label": "2013",
+        "value": 1155
+      },
+      {
+        "label": "2014",
+        "value": 1310
+      },
+      {
+        "label": "2015",
+        "value": 1490
+      },
+      {
+        "label": "2016",
+        "value": 1710
+      },
+      {
+        "label": "2017",
+        "value": 2000
+      },
+      {
+        "label": "2018",
+        "value": 2230
+      },
+      {
+        "label": "2019",
+        "value": 2410
+      },
+      {
+        "label": "2020",
+        "value": 2700
+      },
+      {
+        "label": "2021",
+        "value": 2910
+      },
+      {
+        "label": "2022",
+        "value": 2933
+      },
+      {
+        "label": "2023",
+        "value": 3033
+      },
+      {
+        "label": "2024",
+        "value": 3080
+      },
+      {
+        "label": "2025",
+        "value": 3070
+      }
+    ]
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "2026",
+        "value": "~2.0B",
+        "year": "2026",
+        "trendDir": "up"
+      },
+      {
+        "label": "2017",
+        "value": "72M",
+        "year": "2017"
+      },
+      {
+        "label": "To 1B",
+        "value": "5 years"
+      }
+    ],
+    "insights": [
+      "Fastest platform ever to reach 1 billion users.",
+      "Achieved this despite being banned in India, its largest early market."
+    ],
+    "report": "TikTok reached one billion monthly users within five years of its global launch — the fastest in history, versus eight years for Facebook and nearly ten for Instagram.",
+    "category": "technology",
+    "accent": "#ec4899",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "tiktok-mau",
+    "title": "TikTok Monthly Active Users",
+    "subtitle": "Millions of MAU — 2017 to 2026",
+    "unit": "M",
+    "chartType": "line",
+    "data": [
+      {
+        "label": "2017",
+        "value": 72
+      },
+      {
+        "label": "2018",
+        "value": 133
+      },
+      {
+        "label": "2019",
+        "value": 381
+      },
+      {
+        "label": "2020",
+        "value": 700
+      },
+      {
+        "label": "2021",
+        "value": 902
+      },
+      {
+        "label": "2022",
+        "value": 1366
+      },
+      {
+        "label": "2023",
+        "value": 1587
+      },
+      {
+        "label": "2024",
+        "value": 1685
+      },
+      {
+        "label": "2025",
+        "value": 1844
+      },
+      {
+        "label": "2026",
+        "value": 2000
+      }
+    ]
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Largest",
+        "value": "Facebook 3.07B"
+      },
+      {
+        "label": "1B+ club",
+        "value": "7 platforms"
+      },
+      {
+        "label": "Meta apps",
+        "value": "6B+ combined"
+      }
+    ],
+    "insights": [
+      "Seven platforms now exceed one billion users.",
+      "Meta's apps together reach over 6 billion monthly."
+    ],
+    "report": "Seven platforms each exceed one billion monthly users in 2026, led by Facebook, WhatsApp, and Instagram — three of which belong to Meta.",
+    "category": "technology",
+    "accent": "#10b981",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "platform-rankings-2026",
+    "title": "Largest Social Platforms by Users (2026)",
+    "subtitle": "Monthly active users (millions) — billion-user club",
+    "unit": "M",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Facebook",
+        "value": 3070
+      },
+      {
+        "label": "WhatsApp",
+        "value": 3000
+      },
+      {
+        "label": "Instagram",
+        "value": 3000
+      },
+      {
+        "label": "YouTube",
+        "value": 2580
+      },
+      {
+        "label": "TikTok",
+        "value": 2000
+      },
+      {
+        "label": "WeChat",
+        "value": 1410
+      },
+      {
+        "label": "Telegram",
+        "value": 1000
+      }
+    ]
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest",
+        "value": "TikTok 58 min"
+      },
+      {
+        "label": "Avg total",
+        "value": "141 min/day"
+      },
+      {
+        "label": "Lowest",
+        "value": "LinkedIn 11 min"
+      }
+    ],
+    "insights": [
+      "Short-form video commands the most attention.",
+      "Professional and discovery platforms see far shorter sessions."
+    ],
+    "report": "TikTok leads daily engagement at 58 minutes per user, ahead of YouTube at 49. The average internet user spends about 141 minutes daily across all social media.",
+    "category": "technology",
+    "accent": "#f59e0b",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "time-spent-by-platform",
+    "title": "Daily Time Spent by Platform (2026)",
+    "subtitle": "Average minutes per day per user",
+    "unit": "min",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "TikTok",
+        "value": 58
+      },
+      {
+        "label": "YouTube",
+        "value": 49
+      },
+      {
+        "label": "Instagram",
+        "value": 33
+      },
+      {
+        "label": "Facebook",
+        "value": 32
+      },
+      {
+        "label": "X (Twitter)",
+        "value": 31
+      },
+      {
+        "label": "Snapchat",
+        "value": 30
+      },
+      {
+        "label": "Pinterest",
+        "value": 14
+      },
+      {
+        "label": "LinkedIn",
+        "value": 11
+      }
+    ]
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "Highest",
+        "value": "E. Asia 88.1%"
+      },
+      {
+        "label": "Lowest",
+        "value": "E. Africa 12.6%"
+      },
+      {
+        "label": "Growth frontier",
+        "value": "S. Asia, Africa"
+      }
+    ],
+    "insights": [
+      "Eastern Asia is near-saturated; Africa is largely untapped.",
+      "Lowest-penetration regions hold the biggest growth potential."
+    ],
+    "report": "Penetration ranges from 88% in Eastern Asia to under 13% in Eastern Africa, with Southern Asia and Africa representing the largest remaining growth opportunities.",
+    "category": "technology",
+    "accent": "#06b6d4",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "social-penetration-by-region",
+    "title": "Social Media Penetration by Region (2025)",
+    "subtitle": "Share of population using social media (%)",
+    "unit": "%",
+    "chartType": "bar",
+    "data": [
+      {
+        "label": "Eastern Asia",
+        "value": 88.1
+      },
+      {
+        "label": "Northern Europe",
+        "value": 79
+      },
+      {
+        "label": "Western Europe",
+        "value": 77.7
+      },
+      {
+        "label": "Northern America",
+        "value": 74
+      },
+      {
+        "label": "Southern America",
+        "value": 71.8
+      },
+      {
+        "label": "SE Asia",
+        "value": 69.6
+      },
+      {
+        "label": "Southern Asia",
+        "value": 34.5
+      },
+      {
+        "label": "Western Africa",
+        "value": 19.1
+      },
+      {
+        "label": "Eastern Africa",
+        "value": 12.6
+      }
+    ]
+  },
+  {
+    "views": 0,
+    "published": true,
+    "keyStats": [
+      {
+        "label": "2026 (proj.)",
+        "value": "$338B",
+        "year": "2026",
+        "trendDir": "up"
+      },
+      {
+        "label": "2014",
+        "value": "$17B",
+        "year": "2014"
+      },
+      {
+        "label": "Growth",
+        "value": "~20x"
+      }
+    ],
+    "insights": [
+      "Social ad spend has grown roughly 20x in a decade.",
+      "It now rivals search and display in many markets."
+    ],
+    "report": "Social advertising grew from a $17 billion niche in 2014 to a projected $338 billion in 2026 — nearly a 20-fold expansion, now about a third of all digital ad spending.",
+    "category": "technology",
+    "accent": "#ef4444",
+    "country": null,
+    "region": null,
+    "tags": [
+      "social media",
+      "internet"
+    ],
+    "lastUpdated": "2026-06-18",
+    "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+    "notebookUrl": null,
+    "annotations": [],
+    "whyItMatters": "",
+    "methodology": {
+      "source": "DataReportal / company filings, compiled in 'Social Media User Adoption 2000-2026'",
+      "collectionMethod": "Compiled from platform filings and industry trackers.",
+      "coverage": "Global monthly active users unless noted.",
+      "lastUpdated": "2026-06-18",
+      "caveats": "Figures are approximate; methodologies differ across platforms."
+    },
+    "id": "social-ad-revenue",
+    "title": "Global Social Media Ad Revenue",
+    "subtitle": "USD billions — 2014 to 2026 (2026 projected)",
+    "unit": "$B",
+    "chartType": "area",
+    "data": [
+      {
+        "label": "2014",
+        "value": 17
+      },
+      {
+        "label": "2018",
+        "value": 90
+      },
+      {
+        "label": "2021",
+        "value": 180
+      },
+      {
+        "label": "2023",
+        "value": 230
+      },
+      {
+        "label": "2024",
+        "value": 250
+      },
+      {
+        "label": "2025",
+        "value": 276
+      },
+      {
+        "label": "2026",
+        "value": 338
+      }
+    ]
+  }
+]
