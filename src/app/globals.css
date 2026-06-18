@@ -233,6 +233,9 @@
   box-shadow: var(--sh-shadow);
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
+.sh-card-hover {
+  cursor: pointer;
+}
 .sh-card-hover:hover {
   transform: translateY(-3px);
   box-shadow: 0 24px 52px rgba(16, 35, 61, 0.12);

@@ -285,8 +285,16 @@ function StandardChart({
   // X labels
   const every = Math.max(1, Math.ceil(n / 8));
   const xLabels: React.ReactNode[] = [];
+  // Index of the last label that falls on the regular interval.
+  const lastRegular = Math.floor((n - 1) / every) * every;
   for (let i = 0; i < n; i++) {
-    if (i % every === 0 || i === n - 1) {
+    // Show a label on the interval, and always show the final point — but skip
+    // the final one if it sits right next to the previous labeled tick, which
+    // would make the two labels (e.g. 2023 / 2024) overlap.
+    const isRegular = i % every === 0;
+    const isLast = i === n - 1;
+    const lastTooClose = isLast && (i - lastRegular) < every && i !== lastRegular;
+    if ((isRegular || isLast) && !lastTooClose) {
       const x = xCenter(i);
       const isF = allPoints[i].forecast;
       xLabels.push(

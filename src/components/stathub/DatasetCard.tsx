@@ -3,7 +3,7 @@
 import type { Dataset } from "@/lib/stathub/types";
 import { useStatHub } from "@/lib/stathub/store";
 import { ChartCanvas } from "./ChartCanvas";
-import { Bookmark, Eye } from "lucide-react";
+import { Bookmark, Eye, ExternalLink } from "lucide-react";
 import { TOPIC_MAP } from "@/lib/stathub/topics";
 
 interface DatasetCardProps {
@@ -43,23 +43,36 @@ export function DatasetCard({ dataset, variant = "default", index = 0 }: Dataset
               {topic?.icon} {topic?.label}
             </span>
           </div>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              if (bookmarked) {
-                removeBookmark(dataset.id);
-              } else {
-                addBookmark(dataset.id);
-              }
-            }}
-            className="flex-shrink-0 p-1 rounded-md hover:bg-[var(--sh-surface-alt)] transition-colors"
-            aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
-          >
-            <Bookmark
-              size={15}
-              className={bookmarked ? "fill-[var(--sh-brand)] text-[var(--sh-brand)]" : "text-[var(--sh-ink-soft)]"}
-            />
-          </button>
+          <div className="flex items-center gap-0.5 flex-shrink-0">
+            <a
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/#/dataset/${dataset.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-1 rounded-md hover:bg-[var(--sh-surface-alt)] transition-colors text-[var(--sh-ink-soft)] hover:text-[var(--sh-brand)]"
+              aria-label="Open in new tab"
+              title="Open in new tab"
+            >
+              <ExternalLink size={14} />
+            </a>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (bookmarked) {
+                  removeBookmark(dataset.id);
+                } else {
+                  addBookmark(dataset.id);
+                }
+              }}
+              className="p-1 rounded-md hover:bg-[var(--sh-surface-alt)] transition-colors"
+              aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
+            >
+              <Bookmark
+                size={15}
+                className={bookmarked ? "fill-[var(--sh-brand)] text-[var(--sh-brand)]" : "text-[var(--sh-ink-soft)]"}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Title */}
