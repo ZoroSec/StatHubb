@@ -113,6 +113,7 @@ export type Route =
   | { name: "board" }
   | { name: "compare"; a?: string; b?: string }
   | { name: "search"; q?: string }
+  | { name: "all" }
   | { name: "admin" };
 
 // ── Bookmarks (Personal Board) ───────────────────────────────────────────────

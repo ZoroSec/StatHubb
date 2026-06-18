@@ -9,6 +9,7 @@ import { TopicPage } from "./TopicPage";
 import { CountryPage } from "./CountryPage";
 import { BoardPage } from "./BoardPage";
 import { ComparePage } from "./ComparePage";
+import { AllDatasetsPage } from "./AllDatasetsPage";
 import { AdminPage } from "./AdminPage";
 import { useEffect } from "react";
 
@@ -41,6 +42,7 @@ export function StatHubApp() {
         {route.name === "country" && <CountryPage id={route.id} />}
         {route.name === "board" && <BoardPage />}
         {route.name === "compare" && <ComparePage a={route.a} b={route.b} />}
+        {route.name === "all" && <AllDatasetsPage />}
         {route.name === "admin" && <AdminPage />}
       </main>
       <Footer />

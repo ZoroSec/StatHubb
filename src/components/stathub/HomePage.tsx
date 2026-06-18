@@ -234,7 +234,7 @@ export function HomePage() {
       </section>
 
       {/* ═══ Topic Explorer ══════════════════════════════════════════════════ */}
-      <section className="mb-12 sh-fade-up" style={{ animationDelay: "0.2s" }}>
+      <section id="topic-explorer" className="mb-12 sh-fade-up" style={{ animationDelay: "0.2s" }}>
         <div className="mb-5">
           <div className="sh-eyebrow mb-1.5">Browse by theme</div>
           <h2 className="sh-section-title">Topic Explorer</h2>
@@ -308,13 +308,26 @@ export function HomePage() {
             <div className="sh-eyebrow mb-1.5">The Library</div>
             <h2 className="sh-section-title">All datasets</h2>
           </div>
-          <span className="text-sm text-[var(--sh-ink-soft)]">{DATASETS.length} total</span>
+          <span className="text-sm text-[var(--sh-ink-soft)]">{DATASETS.filter((d) => d.published).length} total</span>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {DATASETS.filter((d) => d.published).map((ds, i) => (
+          {DATASETS.filter((d) => d.published).slice(0, 12).map((ds, i) => (
             <DatasetCard key={ds.id} dataset={ds} index={i} />
           ))}
         </div>
+        {DATASETS.filter((d) => d.published).length > 12 && (
+          <div className="flex justify-center mt-8">
+            <a
+              href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/#/all`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sh-btn sh-btn-primary !px-6 !py-3"
+            >
+              View all {DATASETS.filter((d) => d.published).length} datasets
+              <ArrowRight size={16} />
+            </a>
+          </div>
+        )}
       </section>
     </div>
   );

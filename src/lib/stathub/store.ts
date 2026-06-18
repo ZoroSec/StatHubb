@@ -71,6 +71,8 @@ function parseHash(): Route {
       return { name: "compare", a: parts[1], b: parts[2] };
     case "search":
       return { name: "search", q: parts[1] ? decodeURIComponent(parts[1]) : undefined };
+    case "all":
+      return { name: "all" };
     case "admin":
       return { name: "admin" };
     default:
@@ -94,6 +96,8 @@ function routeToHash(route: Route): string {
       return `#/compare${route.a ? "/" + route.a : ""}${route.b ? "/" + route.b : ""}`;
     case "search":
       return `#/search${route.q ? "/" + encodeURIComponent(route.q) : ""}`;
+    case "all":
+      return `#/all`;
     case "admin":
       return `#/admin`;
   }

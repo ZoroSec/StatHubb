@@ -43,7 +43,7 @@ export function Nav() {
             StatHub
           </div>
           <div className="hidden lg:flex items-center gap-2 flex-wrap">
-            {TOPICS.slice(0, 6).map((t) => (
+            {TOPICS.slice(0, 5).map((t) => (
               <button
                 key={t.id}
                 className="sh-nav-link"
@@ -53,6 +53,18 @@ export function Nav() {
                 <span>{t.label}</span>
               </button>
             ))}
+            <button
+              className="sh-nav-link"
+              onClick={() => {
+                navigate({ name: "home" });
+                setTimeout(() => {
+                  document.getElementById("topic-explorer")?.scrollIntoView({ behavior: "smooth" });
+                }, 50);
+              }}
+            >
+              <span>⊞</span>
+              <span>All Topics</span>
+            </button>
           </div>
         </div>
 
