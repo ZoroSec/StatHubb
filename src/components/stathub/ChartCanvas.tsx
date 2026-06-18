@@ -234,9 +234,14 @@ function StandardChart({
 }: StandardChartProps) {
   if (!dataset.data || dataset.data.length === 0) return null;
 
-  const pad = { top: 20, right: 20, bottom: 40, left: 52 };
+  // Compact charts (e.g. the mini charts inside dataset cards) need tighter
+  // padding and fewer grid lines, or the y-axis labels overlap.
+  const compact = height < 180;
+  const pad = compact
+    ? { top: 10, right: 12, bottom: 26, left: 38 }
+    : { top: 20, right: 20, bottom: 40, left: 52 };
   const W = Math.max(50, width - pad.left - pad.right);
-  const H = Math.max(50, height - pad.top - pad.bottom);
+  const H = Math.max(40, height - pad.top - pad.bottom);
 
   // Determine data range including forecast
   const allPoints = forecast && showForecast ? forecast.points : dataset.data.map((d) => ({ ...d, forecast: false }));
@@ -258,7 +263,7 @@ function StandardChart({
   const accent = dataset.accent || "#6366f1";
 
   // Grid lines
-  const gridLines = 4;
+  const gridLines = compact ? 2 : 4;
   const gridEls: React.ReactNode[] = [];
   const yLabels: React.ReactNode[] = [];
   for (let i = 0; i <= gridLines; i++) {
@@ -269,7 +274,7 @@ function StandardChart({
     );
     const lv = Math.abs(v) >= 100 ? Math.round(v) : v.toFixed(1);
     yLabels.push(
-      <text key={`yl${i}`} x={pad.left - 8} y={y + 4} className="sh-axis-text" textAnchor="end">
+      <text key={`yl${i}`} x={pad.left - 8} y={y + 4} className={`sh-axis-text ${compact ? "sh-axis-compact" : ""}`} textAnchor="end">
         {lv}
       </text>
     );
@@ -301,8 +306,8 @@ function StandardChart({
         <text
           key={`xl${i}`}
           x={x}
-          y={pad.top + H + 22}
-          className="sh-axis-text"
+          y={pad.top + H + (compact ? 16 : 22)}
+          className={`sh-axis-text ${compact ? "sh-axis-compact" : ""}`}
           textAnchor="middle"
           opacity={isF ? 0.5 : 1}
           fontStyle={isF ? "italic" : "normal"}

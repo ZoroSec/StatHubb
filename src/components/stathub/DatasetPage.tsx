@@ -258,17 +258,19 @@ export function DatasetPage({ id }: DatasetPageProps) {
 
         {/* Chart */}
         <div
-          className="sh-chart-stage rounded-xl p-3 border min-h-[380px]"
+          className="sh-chart-stage rounded-xl p-3 border overflow-x-auto"
           style={{ background: `linear-gradient(180deg, ${ds.accent}06, transparent)`, borderColor: "var(--sh-line)" }}
         >
-          <ChartCanvas
-            dataset={ds}
-            chartType={chartType}
-            height={380}
-            interactive
-            showForecast={showForecast}
-            showAnnotations
-          />
+          <div className="sh-chart-scroll min-h-[380px]">
+            <ChartCanvas
+              dataset={ds}
+              chartType={chartType}
+              height={380}
+              interactive
+              showForecast={showForecast}
+              showAnnotations
+            />
+          </div>
         </div>
 
         {/* Forecast Info */}

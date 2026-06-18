@@ -185,6 +185,18 @@
   border-color: #2a2f42 !important;
 }
 
+/* On phones, make the main dataset chart wider than the viewport and let the
+   stage scroll horizontally, so dense time series stay readable instead of
+   being squeezed. On larger screens it just fills the width normally. */
+.sh-chart-scroll {
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .sh-chart-scroll {
+    min-width: 620px;
+  }
+}
+
 /* ── Dark-mode accent brightness fix ─────────────────────────────────────────
    Accent hex colours (#6366f1 etc.) are too dim on #111118 surfaces.
    The .sh-accent-text class brightens any inline-styled accent text in dark
@@ -284,6 +296,7 @@ textarea.sh-input { resize: vertical; min-height: 38px; }
 .sh-chart-svg { width: 100%; height: 100%; }
 .sh-chart-svg .sh-grid-line { stroke: var(--sh-line); stroke-dasharray: 3 3; }
 .sh-chart-svg .sh-axis-text { font-size: 11px; fill: var(--sh-axis); font-weight: 600; }
+.sh-chart-svg .sh-axis-text.sh-axis-compact { font-size: 9px; }
 .sh-chart-svg .sh-chart-dot { cursor: crosshair; transition: r 0.15s; }
 .sh-chart-svg .sh-chart-dot:hover { r: 7; }
 .sh-chart-svg .sh-chart-cell { cursor: pointer; transition: transform 0.1s; transform-origin: center; }

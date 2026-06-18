@@ -100,7 +100,7 @@ export function DatasetCard({ dataset, variant = "default", index = 0 }: Dataset
 
         {/* Mini chart */}
         <div
-          className="rounded-xl p-2 mb-4 border overflow-hidden"
+          className="sh-chart-stage rounded-xl p-2 mb-4 border overflow-hidden"
           style={{
             background: `linear-gradient(180deg, ${dataset.accent}06, transparent)`,
             borderColor: "var(--sh-line)",
