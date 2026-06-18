@@ -8,6 +8,7 @@ import { TOPICS } from "@/lib/stathub/topics";
 import { COUNTRIES } from "@/lib/stathub/countries";
 import { ChartCanvas } from "./ChartCanvas";
 import { PublishPanel } from "./PublishPanel";
+import { validateDataset } from "@/lib/stathub/validateDataset";
 import type { Dataset, ChartType, EventAnnotation } from "@/lib/stathub/types";
 import {
   ArrowLeft, Plus, Edit3, Trash2, Save, X, Database, Eye, EyeOff,
@@ -195,6 +196,54 @@ function AdminContent({
   const [confirmPw, setConfirmPw] = useState("");
 
   const customCount = datasets.filter((d) => isCustom(d.id)).length;
+
+  const jsonInputRef = useRef<HTMLInputElement>(null);
+
+  // Import one or more full datasets from a JSON file.
+  // Accepts either a single Dataset object or an array of them.
+  // Each is validated against the Dataset shape before being added.
+  function handleImportJSON(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(String(reader.result || ""));
+      } catch {
+        toast.error("Couldn't parse that file — is it valid JSON?");
+        return;
+      }
+      const items = Array.isArray(parsed) ? parsed : [parsed];
+      let imported = 0;
+      const failures: string[] = [];
+      for (const item of items) {
+        const ds = item as Partial<Dataset>;
+        // Backfill fields the editor expects but a hand-authored file might omit.
+        const candidate: Partial<Dataset> = {
+          views: 0,
+          published: true,
+          keyStats: [],
+          insights: [],
+          report: "",
+          ...ds,
+          id: ds.id || (ds.title ? slugify(ds.title) : ""),
+        };
+        const errors = validateDataset(candidate);
+        if (errors.length) {
+          failures.push(`${candidate.title || candidate.id || "untitled"}: ${errors[0]}`);
+          continue;
+        }
+        addDataset(candidate as Dataset);
+        imported++;
+      }
+      if (imported > 0) {
+        toast.success(`Imported ${imported} dataset${imported === 1 ? "" : "s"}`);
+      }
+      if (failures.length > 0) {
+        toast.error(`${failures.length} skipped. First: ${failures[0]}`);
+      }
+    };
+    reader.readAsText(file);
+  }
 
   function startAdd() {
     setForm(EMPTY_FORM);
@@ -396,6 +445,24 @@ function AdminContent({
             <button className="sh-btn sh-btn-primary" onClick={startAdd}>
               <Plus size={16} /> Add Dataset
             </button>
+          )}
+          {!showForm && (
+            <>
+              <button className="sh-btn" onClick={() => jsonInputRef.current?.click()}>
+                <Upload size={14} /> Import JSON
+              </button>
+              <input
+                ref={jsonInputRef}
+                type="file"
+                accept=".json,application/json"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleImportJSON(file);
+                  e.target.value = ""; // allow re-importing the same file
+                }}
+              />
+            </>
           )}
           <button className="sh-btn" onClick={() => setShowPublish(!showPublish)}>
             <Github size={14} /> Publish to GitHub
