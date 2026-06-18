@@ -259,8 +259,8 @@ function StandardChart({
 
   // Grid lines
   const gridLines = 4;
-  const gridEls = [];
-  const yLabels = [];
+  const gridEls: React.ReactNode[] = [];
+  const yLabels: React.ReactNode[] = [];
   for (let i = 0; i <= gridLines; i++) {
     const v = vMin + (vRange / gridLines) * (gridLines - i);
     const y = pad.top + (H / gridLines) * i;
@@ -284,7 +284,7 @@ function StandardChart({
 
   // X labels
   const every = Math.max(1, Math.ceil(n / 8));
-  const xLabels = [];
+  const xLabels: React.ReactNode[] = [];
   for (let i = 0; i < n; i++) {
     if (i % every === 0 || i === n - 1) {
       const x = xCenter(i);
@@ -495,8 +495,8 @@ function ScatterChart({ dataset, width, height, onHover, onLeave }: Omit<Standar
   const accent = dataset.accent;
 
   const gridLines = 4;
-  const gridEls = [];
-  const yLabels = [];
+  const gridEls: React.ReactNode[] = [];
+  const yLabels: React.ReactNode[] = [];
   for (let i = 0; i <= gridLines; i++) {
     const v = vMin + (vRange / gridLines) * (gridLines - i);
     const y = pad.top + (H / gridLines) * i;
@@ -546,14 +546,14 @@ function RadarChart({ dataset, width, height, onHover, onLeave }: Omit<StandardC
   const accent = dataset.accent;
 
   // Grid circles
-  const gridCircles = [];
+  const gridCircles: React.ReactNode[] = [];
   for (let i = 1; i <= 4; i++) {
     const rr = (r / 4) * i;
     gridCircles.push(<circle key={`gc${i}`} cx={cx} cy={cy} r={rr} fill="none" className="sh-grid-line" />);
   }
 
   // Axis lines
-  const axisLines = [];
+  const axisLines: React.ReactNode[] = [];
   for (let i = 0; i < n; i++) {
     const a = angle(i);
     axisLines.push(
@@ -692,8 +692,8 @@ function StackedBarChart({ dataset, width, height, onHover, onLeave }: Omit<Stan
   const bw = Math.max(4, xStep * 0.6);
 
   const gridLines = 4;
-  const gridEls = [];
-  const yLabels = [];
+  const gridEls: React.ReactNode[] = [];
+  const yLabels: React.ReactNode[] = [];
   for (let i = 0; i <= gridLines; i++) {
     const v = (vMax / gridLines) * (gridLines - i);
     const y = pad.top + (H / gridLines) * i;
